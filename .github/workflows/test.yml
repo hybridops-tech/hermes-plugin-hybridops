@@ -40,6 +40,10 @@ jobs:
 
   hermes-integration:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      HERMES_INTEGRATION_REQUIRED: "1"
+      PYTHONUNBUFFERED: "1"
     steps:
       - uses: actions/checkout@f548e57e544e1ff5a4c46bf1e1b8685f8e4a348a # v7.0.1
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
@@ -57,6 +61,15 @@ jobs:
       - run: >-
           python -m pip install --no-deps --editable
           "git+https://github.com/NousResearch/hermes-agent.git@caafe5389ae585ef77387a962aee05b1bcf17029#egg=hermes-agent"
-      - run: python -m unittest tests.test_hermes_integration -v
-        env:
-          HERMES_INTEGRATION_REQUIRED: "1"
+      - name: Validate Hermes admission and discovery
+        run: >-
+          python -m unittest -v
+          tests.test_hermes_integration.HermesIntegrationTests.test_admission_and_runtime_discovery
+      - name: Verify denied approval blocks dispatch
+        run: >-
+          python -m unittest -v
+          tests.test_hermes_integration.HermesIntegrationTests.test_hermes_denial_blocks_export_before_dispatch
+      - name: Verify approval failure blocks dispatch
+        run: >-
+          python -m unittest -v
+          tests.test_hermes_integration.HermesIntegrationTests.test_hermes_approval_failure_blocks_export

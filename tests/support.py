@@ -69,7 +69,7 @@ def make_layout(base: Path, *, mutations: bool = False) -> tuple[Settings, dict[
     calls_file = base / "fake-calls.jsonl"
     env_file = base / "fake-env.json"
     executable = base / "hyops"
-    script = f"""#!/usr/bin/python3
+    script = f"""#!{sys.executable}
 import json
 import os
 from pathlib import Path

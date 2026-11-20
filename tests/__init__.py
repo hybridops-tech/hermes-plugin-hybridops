@@ -1,0 +1,1 @@
+"""HybridOps Hermes plugin tests."""

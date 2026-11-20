@@ -1,0 +1,36 @@
+manifest_version: 2
+name: hybridops
+version: 0.1.0
+description: "Run guarded Containerlab recovery exports and imports through HybridOps."
+author: HybridOps Technologies Ltd
+kind: standalone
+license: MIT-0
+homepage: https://github.com/hybridops-tech/hermes-plugin-hybridops
+requires_hermes: ">=0.23.3"
+platforms:
+  - linux
+python_dependencies:
+  - "PyYAML>=6.0,<7.0"
+provides_tools:
+  - hybridops_recovery_inspect
+  - hybridops_recovery_export
+  - hybridops_recovery_import
+provides_hooks:
+  - pre_tool_call
+config_schema:
+  hyops_executable:
+    type: string
+    default: hyops
+    description: HybridOps executable name or absolute path.
+  targets:
+    type: object
+    default: {}
+    description: Named, operator-managed Containerlab recovery targets.
+  mutations_enabled:
+    type: boolean
+    default: false
+    description: Allow export and import to reach the Hermes approval gate.
+  timeout_seconds:
+    type: integer
+    default: 1800
+    description: Apply timeout, bounded to 30-14400 seconds.

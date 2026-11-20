@@ -1,0 +1,1 @@
+"""HybridOps recovery plugin implementation."""

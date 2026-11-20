@@ -10,7 +10,7 @@ from pathlib import Path
 
 from .support import PACKAGE_NAME, write_private
 
-process = __import__(f"{PACKAGE_NAME}.process", fromlist=["process"])
+process = __import__(f"{PACKAGE_NAME}.hybridops_recovery.process", fromlist=["process"])
 
 
 class ProcessTests(unittest.TestCase):

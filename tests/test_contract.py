@@ -9,7 +9,7 @@ from unittest import mock
 
 from .support import PACKAGE_NAME, make_layout
 
-contract = __import__(f"{PACKAGE_NAME}.contract", fromlist=["contract"])
+contract = __import__(f"{PACKAGE_NAME}.hybridops_recovery.contract", fromlist=["contract"])
 
 
 class ContractTests(unittest.TestCase):

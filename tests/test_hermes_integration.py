@@ -20,7 +20,7 @@ except ImportError:  # The dedicated integration job installs pinned Hermes.
 
 from .support import PACKAGE_NAME, ROOT, make_layout, mutation_args, read_calls
 
-service_module = __import__(f"{PACKAGE_NAME}.service", fromlist=["service"])
+service_module = __import__(f"{PACKAGE_NAME}.hybridops_recovery.service", fromlist=["service"])
 
 
 @unittest.skipIf(lifecycle is None, "Hermes integration environment is not installed")

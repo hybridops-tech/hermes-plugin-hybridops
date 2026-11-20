@@ -17,8 +17,8 @@ from .support import (
     set_secret_environment,
 )
 
-contract = __import__(f"{PACKAGE_NAME}.contract", fromlist=["contract"])
-service_module = __import__(f"{PACKAGE_NAME}.service", fromlist=["service"])
+contract = __import__(f"{PACKAGE_NAME}.hybridops_recovery.contract", fromlist=["contract"])
+service_module = __import__(f"{PACKAGE_NAME}.hybridops_recovery.service", fromlist=["service"])
 
 
 class ServiceTests(unittest.TestCase):

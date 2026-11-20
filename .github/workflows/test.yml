@@ -59,7 +59,8 @@ jobs:
           "rich==14.3.4"
           "ruamel.yaml==0.18.16"
       - run: >-
-          python -m pip install --no-deps --editable
+          python -m pip install --no-deps
+          --src "${RUNNER_TEMP}/pip-src" --editable
           "git+https://github.com/NousResearch/hermes-agent.git@caafe5389ae585ef77387a962aee05b1bcf17029#egg=hermes-agent"
       - name: Validate Hermes admission
         run: >-

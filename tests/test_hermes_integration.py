@@ -21,25 +21,24 @@ except ImportError:  # The dedicated integration job installs pinned Hermes.
 from .support import PACKAGE_NAME, ROOT, make_layout, mutation_args, read_calls
 
 service_module = __import__(f"{PACKAGE_NAME}.hybridops_recovery.service", fromlist=["service"])
+EXPECTED_TOOLS = {
+    service_module.TOOL_INSPECT,
+    service_module.TOOL_EXPORT,
+    service_module.TOOL_IMPORT,
+}
 
 
 @unittest.skipIf(lifecycle is None, "Hermes integration environment is not installed")
 class HermesIntegrationTests(unittest.TestCase):
-    def test_admission_and_runtime_discovery(self) -> None:
+    def test_admission_validation(self) -> None:
         admission = validate_plugin_dir(ROOT)
         self.assertTrue(admission.ok, admission.failures)
         self.assertEqual(admission.warnings, [])
 
+    def test_runtime_discovery(self) -> None:
         doctor = doctor_plugin(ROOT)
         self.assertTrue(doctor.ok, doctor.format_text())
-        self.assertEqual(
-            set(doctor.registered_tools),
-            {
-                service_module.TOOL_INSPECT,
-                service_module.TOOL_EXPORT,
-                service_module.TOOL_IMPORT,
-            },
-        )
+        self.assertEqual(set(doctor.registered_tools), EXPECTED_TOOLS)
         self.assertEqual(doctor.registered_hooks, ("pre_tool_call",))
 
     def test_hermes_denial_blocks_export_before_dispatch(self) -> None:
